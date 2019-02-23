@@ -1,23 +1,31 @@
+package com.pstrivia.main;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -6112428091888191314L;	
 	public static final int WIDTH = 1000, HEIGHT = 514;
-	
+	private Menu menu;
+	public enum STATE{
+		Menu,
+		Help
+	}
+	public static STATE gameState = STATE.Menu;
 	private Thread thread;
 	private boolean running = false;
 	Image img = Toolkit.getDefaultToolkit().createImage("res/background.jpg");
 	
 	public Game() {
 		new Window(WIDTH,HEIGHT,"PSTrivia",this);
+		
+		menu = new Menu(this);
 	}
 	
 	public void run() {
 		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
+		double ns = 100000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		//int frames = 0;
@@ -31,12 +39,9 @@ public class Game extends Canvas implements Runnable{
 			}
 			if (running)
 				render();
-			//frames++;
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				// System.out.println("FPS: " + frames);
-			//	frames = 0;
 			}
 		}
 		stop();	
@@ -55,7 +60,7 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	public void tick() {
-		
+		menu.tick();
 	}
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -63,10 +68,12 @@ public class Game extends Canvas implements Runnable{
 			this.createBufferStrategy(3);
 			return;
 		}
-		
 		Graphics g = bs.getDrawGraphics();
 		
 		g.drawImage(img, 0, 0, null);
+		if(gameState == STATE.Menu) {
+			menu.render(g);
+		}
 		g.dispose();
 		bs.show();
 	}

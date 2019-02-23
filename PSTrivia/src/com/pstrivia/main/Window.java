@@ -1,3 +1,4 @@
+package com.pstrivia.main;
 import java.awt.Canvas;
 import java.awt.Dimension;
 
