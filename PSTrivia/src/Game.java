@@ -1,14 +1,16 @@
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -6112428091888191314L;	
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 800, HEIGHT = 411;
 	
 	private Thread thread;
 	private boolean running = false;
+	Image img = Toolkit.getDefaultToolkit().createImage("res/background.jpg");
 	
 	public Game() {
-		new Window(WIDTH,HEIGHT,"PSTRivia",this);
+		new Window(WIDTH,HEIGHT,"PSTrivia",this);
 	}
 	
 	public void run() {
@@ -56,7 +58,17 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	public void render() {
+		BufferStrategy bs = this.getBufferStrategy();
+		if(bs == null) {
+			this.createBufferStrategy(3);
+			return;
+		}
 		
+		Graphics g = bs.getDrawGraphics();
+		
+		g.drawImage(img, 0, 0, null);
+		g.dispose();
+		bs.show();
 	}
 	public static void main(String[] arg) {
 		new Game();
