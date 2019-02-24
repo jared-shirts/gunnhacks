@@ -63,8 +63,8 @@ public class Menu extends MouseAdapter{
 		}
 		if(Game.gameState == STATE.End) {
 			if(mouseOver(mx,my,300,350,200,100)) {
+				AudioPlayer.getMusic("music").resume();
 				Game.gameState = STATE.Menu;
-
 			}
 		}
 	}
@@ -114,7 +114,7 @@ public class Menu extends MouseAdapter{
 			
 			g.setFont(fnt3);
 			g.drawString("Use direction keys to move to the doors" , 70, 180);
-			g.drawString("Use P key to pause the game and ESC key to go back", 50, 230);
+			g.drawString("Use your public safety knowledge and learn more!", 50, 230);
 			g.drawString("Made by PSTrivia Co." , 190, 280);
 			
 			g.setColor(Color.white);
@@ -145,7 +145,7 @@ public class Menu extends MouseAdapter{
 			
 			g.setColor(Color.white);
 			g.setColor(Color.white);
-			g.drawString("Game Over!", 500, 250);
+			g.drawString("Game Over!", 400, 250);
 			g.drawString("You died at level: " + Game.level, 400, 325);
 			g.drawString("Click here to continue.", 400, 400);
 		}

@@ -41,6 +41,7 @@ public class KeyInput extends KeyAdapter{
 					}else {
 						Game.life = 5;
 						Game.gameState = Game.STATE.End;
+						AudioPlayer.getMusic("music").pause();;
 						AudioPlayer.getSound("gameover").play();
 					}
 				}
